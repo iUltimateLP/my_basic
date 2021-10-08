@@ -44,7 +44,9 @@
 #ifdef MB_CP_VC
 #	include <conio.h>
 #	include <malloc.h>
+#	define WIN32_LEAN_AND_MEAN
 #	include <Windows.h>
+#	undef WIN32_LEAN_AND_MEAN
 #else /* MB_CP_VC */
 #	include <stdint.h>
 #endif /* MB_CP_VC */
