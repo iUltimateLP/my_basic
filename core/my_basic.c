@@ -769,8 +769,8 @@ MBCONST static const _var_t _VAR_ARGS = { _VAR_ARGS_STR, 0 };
 #define _CLASS_STATE_NONE 0
 #define _CLASS_STATE_PROC 1
 
-MBCONST static const char _MULTI_LINE_COMMENT_PREFIX[] = "'[";
-MBCONST static const char _MULTI_LINE_COMMENT_POSTFIX[] = "']";
+MBCONST static const char _MULTI_LINE_COMMENT_PREFIX[] = "#[";
+MBCONST static const char _MULTI_LINE_COMMENT_POSTFIX[] = "#]";
 
 typedef enum _parsing_state_e {
 	_PS_NORMAL,
@@ -5006,7 +5006,7 @@ static bool_t _is_quotation_char(char c) {
 
 /* Determine whether a character is comment mark */
 static bool_t _is_comment_char(char c) {
-	return (c == '\'');
+	return (c == '#');
 }
 
 /* Determine whether a character is accessor char */
