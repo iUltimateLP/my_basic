@@ -14815,7 +14815,6 @@ int mb_gets(const char* pmt, char* buf, int s) {
 
 int mb_printf(struct mb_interpreter_t* s, const char* fmt, ...)
 {
-	assert(0 && "Implement custom printer!");
 	return 0;
 }
 
