@@ -4894,7 +4894,7 @@ static void _print_string(mb_interpreter_t* s, _object_t* obj) {
 	while((lbuf = (size_t)mb_bytes_to_wchar(str, &_WCHAR_BUF_PTR(buf), _WCHARS_OF_BUF(buf))) > _WCHARS_OF_BUF(buf)) {
 		_RESIZE_WCHAR_BUF(buf, lbuf);
 	}
-	_get_printer(s)("%ls", _WCHAR_BUF_PTR(buf));
+	_get_printer(s)(s, "%ls", _WCHAR_BUF_PTR(buf));
 	_DISPOSE_BUF(buf);
 #else /* MB_CP_VC && MB_ENABLE_UNICODE */
 	mb_assert(s && obj);
@@ -18241,9 +18241,9 @@ static int _std_print(mb_interpreter_t* s, void** l) {
 			_UNREF(val_ptr)
 _print:
 			if(val_ptr->type == _DT_NIL) {
-				_get_printer(s)(MB_NIL);
+				_get_printer(s)(s, MB_NIL);
 			} else if(val_ptr->type == _DT_INT) {
-				_get_printer(s)(MB_INT_FMT, val_ptr->data.integer);
+				_get_printer(s)(s, MB_INT_FMT, val_ptr->data.integer);
 			} else if(val_ptr->type == _DT_REAL) {
 #ifdef MB_MANUAL_REAL_FORMATTING
 				_dynamic_buffer_t buf;
@@ -18254,7 +18254,7 @@ _print:
 				_get_printer(s)("%s", _CHAR_BUF_PTR(buf));
 				_DISPOSE_BUF(buf);
 #else /* MB_MANUAL_REAL_FORMATTING */
-				_get_printer(s)(MB_REAL_FMT, val_ptr->data.float_point);
+				_get_printer(s)(s, MB_REAL_FMT, val_ptr->data.float_point);
 #endif /* MB_MANUAL_REAL_FORMATTING */
 			} else if(val_ptr->type == _DT_STRING) {
 				_print_string(s, val_ptr);
@@ -18270,14 +18270,14 @@ _print:
 					while((lbuf = (size_t)val_ptr->data.usertype_ref->fmt(s, val_ptr->data.usertype_ref->usertype, _CHAR_BUF_PTR(buf), (unsigned)_CHARS_OF_BUF(buf))) > _CHARS_OF_BUF(buf)) {
 						_RESIZE_CHAR_BUF(buf, lbuf);
 					}
-					_get_printer(s)("%s", _CHAR_BUF_PTR(buf));
+					_get_printer(s)(s, "%s", _CHAR_BUF_PTR(buf));
 					_DISPOSE_BUF(buf);
 				} else {
-					_get_printer(s)(mb_get_type_string(_internal_type_to_public_type(val_ptr->type)));
+					_get_printer(s)(s, mb_get_type_string(_internal_type_to_public_type(val_ptr->type)));
 				}
 #endif /* MB_ENABLE_USERTYPE_REF */
 			} else if(val_ptr->type == _DT_TYPE) {
-				_get_printer(s)(mb_get_type_string(val_ptr->data.type));
+				_get_printer(s)(s, mb_get_type_string(val_ptr->data.type));
 #ifdef MB_ENABLE_CLASS
 			} else if(val_ptr->type == _DT_CLASS) {
 				bool_t got_tostr = false;
@@ -18290,14 +18290,14 @@ _print:
 
 						goto _print;
 					} else {
-						_get_printer(s)(mb_get_type_string(_internal_type_to_public_type(_DT_CLASS)));
+						_get_printer(s)(s, mb_get_type_string(_internal_type_to_public_type(_DT_CLASS)));
 					}
 				} else {
 					goto _exit;
 				}
 #endif /* MB_ENABLE_CLASS */
 			} else {
-				_get_printer(s)(mb_get_type_string(_internal_type_to_public_type(val_ptr->type)));
+				_get_printer(s)(s, mb_get_type_string(_internal_type_to_public_type(val_ptr->type)));
 			}
 			if(result != MB_FUNC_OK)
 				goto _exit;
@@ -18311,7 +18311,7 @@ _print:
 #else /* _COMMA_AS_NEWLINE */
 			if(obj->data.separator == ';') {
 #endif /* _COMMA_AS_NEWLINE */
-				_get_printer(s)("\n");
+				_get_printer(s)(s, "\n");
 			}
 
 			break;
@@ -18339,7 +18339,7 @@ _exit:
 
 	*l = ast;
 	if(result != MB_FUNC_OK)
-		_get_printer(s)("\n");
+		_get_printer(s)(s, "\n");
 
 	return result;
 }
