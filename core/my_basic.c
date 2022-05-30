@@ -4867,7 +4867,7 @@ static mb_print_func_t _get_printer(mb_interpreter_t* s) {
 	if(s->printer)
 		return s->printer;
 
-	return printf;
+	return mb_printf;
 }
 
 /* Get an input functor of an interpreter */
@@ -14811,6 +14811,12 @@ int mb_gets(const char* pmt, char* buf, int s) {
 	}
 
 	return result;
+}
+
+int mb_printf(struct mb_interpreter_t* s, const char* fmt, ...)
+{
+	assert(0 && "Implement custom printer!");
+	return 0;
 }
 
 /* Duplicate a string for internal use */
