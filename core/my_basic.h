@@ -565,7 +565,7 @@ typedef int (* mb_routine_func_t)(struct mb_interpreter_t*, void**, mb_value_t*,
 typedef int (* mb_debug_stepped_handler_t)(struct mb_interpreter_t*, void**, const char*, int, unsigned short, unsigned short);
 typedef void (* mb_error_handler_t)(struct mb_interpreter_t*, mb_error_e, const char*, const char*, int, unsigned short, unsigned short, int);
 typedef int (* mb_print_func_t)(struct mb_interpreter_t*, const char*, ...);
-typedef int (* mb_input_func_t)(const char*, char*, int);
+typedef int (* mb_input_func_t)(struct mb_interpreter_t*, const char*, char*, int);
 typedef int (* mb_import_handler_t)(struct mb_interpreter_t*, const char*);
 typedef void (* mb_dtor_func_t)(struct mb_interpreter_t*, void*);
 typedef void* (* mb_clone_func_t)(struct mb_interpreter_t*, void*);
@@ -678,8 +678,12 @@ MBAPI int mb_set_gc_enabled(struct mb_interpreter_t* s, bool_t gc);
 MBAPI int mb_gc(struct mb_interpreter_t* s, int_t* collected/* = NULL*/);
 MBAPI int mb_get_userdata(struct mb_interpreter_t* s, void** d);
 MBAPI int mb_set_userdata(struct mb_interpreter_t* s, void* d);
+<<<<<<< HEAD
 MBAPI int mb_gets(const char* pmt, char* buf, int s);
 MBAPI int mb_printf(struct mb_interpreter_t* s, const char* fmt, ...);
+=======
+MBAPI int mb_gets(struct mb_interpreter_t* s, const char* pmt, char* buf, int n);
+>>>>>>> 72db36889e690493ec6ba988b9f5bd01aa0e36d9
 MBAPI char* mb_memdup(const char* val, unsigned size);
 
 #ifdef MB_COMPACT_MODE
