@@ -678,12 +678,7 @@ MBAPI int mb_set_gc_enabled(struct mb_interpreter_t* s, bool_t gc);
 MBAPI int mb_gc(struct mb_interpreter_t* s, int_t* collected/* = NULL*/);
 MBAPI int mb_get_userdata(struct mb_interpreter_t* s, void** d);
 MBAPI int mb_set_userdata(struct mb_interpreter_t* s, void* d);
-<<<<<<< HEAD
-MBAPI int mb_gets(const char* pmt, char* buf, int s);
-MBAPI int mb_printf(struct mb_interpreter_t* s, const char* fmt, ...);
-=======
 MBAPI int mb_gets(struct mb_interpreter_t* s, const char* pmt, char* buf, int n);
->>>>>>> 72db36889e690493ec6ba988b9f5bd01aa0e36d9
 MBAPI char* mb_memdup(const char* val, unsigned size);
 
 #ifdef MB_COMPACT_MODE
